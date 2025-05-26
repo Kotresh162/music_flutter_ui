@@ -15,5 +15,23 @@ A responsive UI
 * flutter pub get
 * flutter pub run
 
+# structure
+--lib
+    --api
+    --screen
+        --customnav
+        --music_service
+        --item_description
+    --widget
+    --model
+-- assets
+    --images
+    --fonts
+        --syne
+        --lobstar
+# dependencies need install
+    --firestore
+    --firecore
+    --
 ## final image
 ![s_rock_music.jpg](s_rock_music.jpg)
