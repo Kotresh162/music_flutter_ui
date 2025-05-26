@@ -65,7 +65,11 @@ class _MusicServiceState extends State<MusicService> {
                 Container(
                   height: (390 / 844) * Screenheight,
                   decoration: BoxDecoration(
-                    color: Color(0xFFA90140),
+                    gradient: LinearGradient(
+                      colors: [Color(0xFFA90140), Color(0xFF69002E)],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       bottomRight: Radius.circular(15),
@@ -74,22 +78,24 @@ class _MusicServiceState extends State<MusicService> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  // 🔍 Search Bar
-                      //
-                       SizedBox(height: (49/844)*Screenheight),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SizedBox(
-                                width: (299/390)*Screenwidth,
-                                child: TextField(
+                      // Top padding for status bar
+                      SizedBox(height: MediaQuery.of(context).padding.top + 10),
+
+                      // Search Bar & Profile Row
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: (299 / 390) * Screenwidth,
+                              child: TextField(
+                                style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
-                                hintText: 'Search"Punjabi-lyrics"',
-                                  // hintStyle: 'Syne',
-                                  prefixIcon: Icon(Icons.search),
-                                  suffixIcon: Icon(Icons.keyboard_voice_outlined),
+                                  hintText: 'Search “Punjabi Lyrics”',
+                                  hintStyle: TextStyle(color: Colors.white54, fontFamily: 'Syne'),
+                                  prefixIcon: Icon(Icons.search, color: Colors.white70),
+                                  suffixIcon: Icon(Icons.mic_none_outlined, color: Colors.white70),
                                   filled: true,
                                   fillColor: Color(0xFF2F2F39),
                                   contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),
@@ -98,21 +104,23 @@ class _MusicServiceState extends State<MusicService> {
                                     borderSide: BorderSide.none,
                                   ),
                                 ),
-                                          ),
                               ),
-                              CircleAvatar(
-                                  radius: 24,
-                                  backgroundImage: AssetImage('assets/user.png'),
-                                ),
-                            ],
-                          ),
+                            ),
+                            CircleAvatar(
+                              radius: 24,
+                              backgroundImage: AssetImage('assets/user.png'),
+                            ),
+                          ],
                         ),
+                      ),
+
                       SizedBox(height: 16),
+
+                      // Main Promo Section
                       Container(
                         width: Screenwidth,
-                        height: (257/844)*Screenheight,
-                        // margin: EdgeInsets.symmetric(horizontal: 20),
-                        padding: EdgeInsets.only(left: (14/390)*Screenwidth),
+                        height: (257 / 844) * Screenheight,
+                        padding: EdgeInsets.only(left: (14 / 390) * Screenwidth),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [Color(0xFF9D0D46), Color(0xFF2E002B)],
@@ -126,39 +134,41 @@ class _MusicServiceState extends State<MusicService> {
                           children: [
                             // Left Disc Image
                             Positioned(
-                              left: -10,
+                              left: -20,
                               bottom: 0,
                               child: Image.asset(
                                 'assets/circular.png',
-                                width: 80,
+                                width: (134/390)*Screenwidth,
+                                height: (119/844)*Screenheight,
                               ),
                             ),
 
                             // Right Keyboard Image
                             Positioned(
-                              right: -30,
-                              top: 0,
+                              right: -20,
+                              bottom: 0,
                               child: Image.asset(
                                 'assets/keyboard.png',
-                                width: 100,
+                                width: (134/390)*Screenwidth,
+                                height: (119/844)*Screenheight,
                               ),
                             ),
-                            // Center Text Content
+
+                            // Center Text and Button
                             Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
                                   "Claim your",
-                                  style: TextStyle(color: Colors.white, fontSize: 16),
-
+                                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
                                 ),
                                 Text(
                                   "Free Demo",
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 45,
-                                    fontWeight: FontWeight.w400,
+                                    fontSize: 42,
                                     fontFamily: 'Lobster',
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 Text(
@@ -167,28 +177,26 @@ class _MusicServiceState extends State<MusicService> {
                                 ),
                                 SizedBox(height: 12),
                                 ElevatedButton(
-                                  onPressed: () {
-                                    print("object");
-                                    Get.to(ScrollableInContainer());
-                                  },
+                                  onPressed: () {},
                                   style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.black,
-                                    backgroundColor: Colors.white,
+                                    fixedSize: Size(96, 36), // Width: 96, Height: 36
+                                    padding: EdgeInsets.symmetric(horizontal: 13, vertical: 7),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(50), // Radius: 50px
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                                    child: Text("Book Now"),
+                                  child: Text(
+                                    "Book Now",
+                                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700,color: Colors.black),
                                   ),
                                 ),
+
                               ],
                             ),
                           ],
                         ),
                       ),
-                    ]
+                    ],
                   ),
                 ),
                 Container(
