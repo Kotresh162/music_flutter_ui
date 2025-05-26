@@ -14,3 +14,6 @@ A responsive UI
 * cd s_s_rocks_music
 * flutter pub get
 * flutter pub run
+
+## final image
+![s_rock_music.jpg](..%2F..%2FDownloads%2Fs_rock_music.jpg)
