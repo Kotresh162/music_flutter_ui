@@ -1,17 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+
+import '../api/items_fetch_api.dart';
+import '../model/items_model.dart';
+import '../widgets/card.dart';
+import 'customenavbar.dart';
+import 'extra.dart';
+import 'item_descroption.dart';
 
 class MusicService extends StatefulWidget {
   const MusicService({super.key});
-
   @override
   State<MusicService> createState() => _MusicServiceState();
 }
 
 class _MusicServiceState extends State<MusicService> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    Center(child: Text('Home Page')),
+    Center(child: Text('Search Page')),
+    Center(child: Text('Profile Page')),
+    Center(child: Text('Profile',)),
+  ];
+
+  final List<Map<String, String>> items = [];
+
+  void loadItems() async {
+    FirestoreService firestoreService = FirestoreService();
+    List<Item> fetchedItems = await firestoreService.fetchItems();
+
+    // Clear existing items if needed
+    items.clear();
+
+    // Convert each Item into a Map<String, String> and add to `items` list
+    for (var item in fetchedItems) {
+      items.add({
+        "title": item.title ?? '',
+        "description": item.description ?? '',
+        "backgroundImage": item.backgroundImage ?? '',
+        "icon": item.icon ?? '',
+        "iconColor": item.iconColor.toString() ?? '',
+      });
+    }
+    print(items);
+  }
+
+  void _onItemTapped(int index) {
+    setState(() => _selectedIndex = index);
+  }
   @override
   Widget build(BuildContext context) {
     final Screenheight = MediaQuery.of(context).size.height;
     final Screenwidth = MediaQuery.of(context).size.width;
+    loadItems();
     return  Scaffold(
         backgroundColor: Color(0xFF18171C),
         body: Stack(
@@ -42,11 +86,13 @@ class _MusicServiceState extends State<MusicService> {
                                 width: (299/390)*Screenwidth,
                                 child: TextField(
                                 decoration: InputDecoration(
-                                hintText: 'Search...',
+                                hintText: 'Search"Punjabi-lyrics"',
+                                  // hintStyle: 'Syne',
                                   prefixIcon: Icon(Icons.search),
+                                  suffixIcon: Icon(Icons.keyboard_voice_outlined),
                                   filled: true,
-                                  fillColor: Colors.grey[200],
-                                  contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                                  fillColor: Color(0xFF2F2F39),
+                                  contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: BorderSide.none,
@@ -55,9 +101,9 @@ class _MusicServiceState extends State<MusicService> {
                                           ),
                               ),
                               CircleAvatar(
-                                radius: 24,
-                                backgroundImage: AssetImage('assets/profile.jpg'),
-                              ),
+                                  radius: 24,
+                                  backgroundImage: AssetImage('assets/user.png'),
+                                ),
                             ],
                           ),
                         ),
@@ -79,25 +125,24 @@ class _MusicServiceState extends State<MusicService> {
                           alignment: Alignment.center,
                           children: [
                             // Left Disc Image
-                            // Positioned(
-                            //   left: -30,
-                            //   bottom: 0,
-                            //   child: Image.asset(
-                            //     'lib/assets/circular.png',
-                            //     width: 80,
-                            //   ),
-                            // ),
+                            Positioned(
+                              left: -10,
+                              bottom: 0,
+                              child: Image.asset(
+                                'assets/circular.png',
+                                width: 80,
+                              ),
+                            ),
 
                             // Right Keyboard Image
-                            // Positioned(
-                            //   right: -30,
-                            //   top: 0,
-                            //   child: Image.asset(
-                            //     'lib/assets/keyboard.png',
-                            //     width: 100,
-                            //   ),
-                            // ),
-
+                            Positioned(
+                              right: -30,
+                              top: 0,
+                              child: Image.asset(
+                                'assets/keyboard.png',
+                                width: 100,
+                              ),
+                            ),
                             // Center Text Content
                             Column(
                               mainAxisSize: MainAxisSize.min,
@@ -105,6 +150,7 @@ class _MusicServiceState extends State<MusicService> {
                                 Text(
                                   "Claim your",
                                   style: TextStyle(color: Colors.white, fontSize: 16),
+
                                 ),
                                 Text(
                                   "Free Demo",
@@ -121,7 +167,10 @@ class _MusicServiceState extends State<MusicService> {
                                 ),
                                 SizedBox(height: 12),
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    print("object");
+                                    Get.to(ScrollableInContainer());
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.black,
                                     backgroundColor: Colors.white,
@@ -138,16 +187,60 @@ class _MusicServiceState extends State<MusicService> {
                             ),
                           ],
                         ),
-                      )
-
+                      ),
                     ]
                   ),
-                )
+                ),
+                Container(
+                  height: (70/844)*Screenheight,
+                  width: (323/390)*Screenwidth,
+                  // color: Colors.white,
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.only(bottom: 24,top: 24),
+                  child: Text("Hire hand-picked Pros for popular music services",style: TextStyle(color: Color(0xFFFFFFFF),fontWeight: FontWeight.w400,fontSize: 15),),
+                ),
+                Container(
+                  height: (300 / 844) * Screenheight,
+                  color: Colors.transparent,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: List.generate(items.length * 2 - 1, (index) {
+                        if (index.isEven) {
+                          final item = items[index ~/ 2];
+                          return GestureDetector(
+                            onTap: () {
+                              // Navigate to the respective page for this item
+                              print(item['title']);
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => RespectivePage(item['title'].toString(),item['description'].toString()),
+                              //   ),
+                              // );
+                            },
+                            child: buildItemCard(item, Screenwidth, Screenheight),
+                          );
+                        } else {
+                          return const SizedBox(height: 11);
+                        }
+                      }),
+                    ),
+                  ),
+                ),
 
               ],
-            )
+            ),
           ],
         ),
+      bottomNavigationBar: CustomBottomNav(
+        selectedIndex: _selectedIndex,
+        onTabSelected: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
       );
   }
 }
+

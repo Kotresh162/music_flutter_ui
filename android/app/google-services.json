@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1090998600407",
+    "project_id": "srocksmusic-4ce9b",
+    "storage_bucket": "srocksmusic-4ce9b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090998600407:android:30eaceac27b9d693866692",
+        "android_client_info": {
+          "package_name": "com.example.s_rocks_music"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3qRrJ8b5t26uDkt4rWdV1d0NUJvHlvp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
