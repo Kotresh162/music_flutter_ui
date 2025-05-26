@@ -16,6 +16,9 @@ A responsive UI
 * flutter pub run
 
 # structure
+![img.png](img.png)
+![img_1.png](img_1.png)
+
 lib/
 │
 ├── api/                   # API service classes or network logic
@@ -61,6 +64,5 @@ assets/
 # dependencies need install
     --firestore
     --firecore
-    --
 ## final image
 ![s_rock_music.jpg](s_rock_music.jpg)
